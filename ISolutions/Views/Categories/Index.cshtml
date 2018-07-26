@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ISolutions.Portal.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categories</h2>
+<hr />
+
+@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" }) <br /> <br />
+<table class="table table-bordered table-condensed">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Large Image</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>             
+                <td>
+                    @item.LargeImage
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    <div class="btn-group btn-group-xs btn-group-justified">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

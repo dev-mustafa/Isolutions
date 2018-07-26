@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Courses";
+}
+@Scripts.Render("~/bundles/flexslider")
+
+
+<script>
+    var selectedCategory = @ViewBag.category;
+    $(document).ready(function () {
+        $('.item').first().addClass('active');
+        select(selectedCategory);
+
+    })
+    function select(category) {
+        selectedCategory = category;
+        $('.active').removeClass('active');
+        $('#c_' + category).addClass('active');
+        search();
+    }
+    function search() {
+
+        var month = $('#Months option:selected')[0].value;
+        var city = $('#Cities option:selected')[0].value;
+        $.get("/Courses/_GetCourses", { category: selectedCategory, city: city, month: month }, function (data) {           
+            $('#courses').html(data);
+        });
+    }
+    
+    
+</script>
+<div class="courses">
+    <div>
+        <ul class="nav nav-tabs">
+            @foreach (var item in ViewBag.Categories)
+            {
+                <li><a id="c_@item.Id" class="item" href="javascript:select(@item.Id)"> @item.Name </a></li>
+            }
+        </ul>
+    </div>
+    <div class="form-inline">
+        <label>Month: </label>
+        @Html.DropDownList("Months", null, "All", new { @onchange = "search()" })
+        <label>City: </label>
+        @Html.DropDownList("Cities", null, "All", new { @onchange = "search()" })
+    </div>
+
+</div>
+
+<hr />
+    <div id="courses" class="row" >
+       
+    </div>
+
+
+

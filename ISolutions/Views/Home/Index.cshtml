@@ -1,0 +1,143 @@
+﻿@model List<ISolutions.Portal.Models.Slide>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="slider">
+    <div class="flexslider" id="mainslider">
+        <ul class="slides">
+            @foreach (var slide in Model)
+            {
+                <li>
+                    <div class="slider-caption">
+                        <div class="slider-trans">
+                            <h1 style="color:@slide.TitleColor">@slide.Title</h1>
+                            <p style="color:@slide.ContentColor">
+                                @Html.Raw(@slide.Content)
+                            </p>
+                            <a href="/Courses?category=@slide.CategoryId">View More</a>
+                        </div>
+                    </div>
+                    <img src="~/Images/Slides/@slide.Image" alt="" />
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <form id="form" method="get" action="/Courses/Search" class="search-form">
+            Search by category
+            @Html.DropDownList("category", null, "All", new { @class = "form-control" })
+            Search by city
+            @Html.DropDownList("city", null, "All", new { @class = "form-control" })
+            Search by month
+            @Html.DropDownList("month", null, "All", new { @class = "form-control" })
+            <br />
+            <input class="btn btn-default btn-block" value="Search" type="submit" />
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="~/Images/logo-big.jpg" />
+            </div>
+            <div class="col-md-9 testimonails-content">
+                <p>
+                    <strong>I.Solutions Ltd.</strong>  specialises in training and development in various sector such as management, leadership, apprenticeships, energy management, finance, marketing, customer service and consultancy. All of our trainers and consultants are quality assured, and have a lot of experience on their ability to deliver top-quality programmes. Not only have we gained an exceptional reputation for delivering the best customer service but competitor analysis shows that we are one of the best value providers in the service industry. Our successful outcomes and feed-back from our clients confirm that value for money and flexibility is at the core of everything we do.
+                </p>
+                <br />
+                <p><strong>I.Solutions Ltd.</strong> is seeking to facilitate companies in the complex task of developing and maintaining competitive advantage. Ensuring growth and survival in the global market is one of our most important targets. The tools that can implement our mission are the design and delivery of the highest standards of professional training and consultancy.</p>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<div id="latest-blog">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                <h2>Latest courses</h2>
+                <img src="images/under-heading.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="latest" class="flexslider">
+            <ul class="slides">
+                @foreach (var item in (List<ISolutions.Portal.Models.TrainingEvent>)ViewBag.latest)
+                {
+                <li>
+                    <div style="padding:0 5px;">
+                        <div class="blog-post">
+                            <div class="blog-thumb">
+                                <img src="~/images/Courses/@item.Course.Image" alt="" />
+                            </div>
+                            <div class="blog-content">
+                                <div class="content-show">
+                                    <h4>@item.Course.Title</h4>
+                                    <span>@item.Date.ToString("dd MMM yyyy")</span>
+                                </div>
+                                <div class="content-hide">
+                                    <table class="table table-condensed">
+                                        <tbody>
+                                            <tr>
+                                                <td>Code</td>
+                                                <td>@item.Course.Code</td>
+                                            </tr>
+                                            <tr>
+                                                <td>City</td>
+                                                <td>@item.City.Name</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Duration</td>
+                                                <td>@item.Duration</td>
+                                            </tr>
+                                            <tr>
+                                                @{
+                                                    string outline = item.Course.Id + ".pdf";
+                                                }
+                                                <td colspan="2">
+                                                    @if (System.IO.File.Exists(Server.MapPath("~\\Images\\Courses\\" + outline)))
+                                                    {
+                                                        <div class="btn-group col-md-offset-4 col-md-8">
+                                                            <a class="btn btn-info" href="~/Images/Courses/@outline" target="_blank">outline</a>
+                                                            <a class="btn btn-default" href="/Home/Contact">View more</a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-default col-md-offset-8 col-md-4" href="/Home/Contact">View more</a>
+                                                    }
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $('#mainslider').flexslider({
+        slideshowSpeed: 15000,
+        pauseOnAction: false,
+    });
+    $('#latest').flexslider({
+        animation: "slide",
+        slideshowSpeed: 15000,
+        animationLoop: true,
+        itemWidth: 390,
+        pauseOnAction: false
+    });
+</script>

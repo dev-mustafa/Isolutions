@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ISolutions.Portal</title>
+   
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    @{
+        var categories = new ISolutions.Portal.Models.ApplicationDbContext().Categories.ToList();
+    }
+    <header>
+        <div id="top-header">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <div class="social-bottom">
+                        <ul>
+                            <li><a target="_blank" href="https://www.facebook.com/isolutions.london.ltd/" class="fa fa-facebook"></a></li>
+                            <li><a target="_blank" href="https://twitter.com/isolutionsUK" class="fa fa-twitter"></a></li>
+                            <li><a target="_blank" href="https://www.linkedin.com/company/10081609" class="fa fa-linkedin"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-header">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-md-3">
+                        <div class="logo">
+                            <a href="/Home"><img src="~/Images/logo.png" title="Isolutions" alt="Isolutions Ltd"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div>
+                            <ul class="nav navbar-nav">
+                                <li><a href="/Home">Home</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="window.location = '/Courses'">Training Courses</a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        @foreach (var c in categories)
+                                        {
+                                            <li><a href="/Courses?category=@c.Id">@c.Name</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="products.html">Consultation</a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Energy Consulting</a></li>
+                                        <li><a href="#">Architecture and Interior Design</a></li>
+                                        @*<li><a href="#">marketing consulting</a></li>
+                                        <li><a href="#">Management and Business Consulting </a></li>*@
+                                    </ul>
+                                </li>
+                                <li><a href="/Home/About">About</a></li>
+                                <li><a href="/Home/Contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+    <footer>
+        <div class="container">
+            <div class="top-footer">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="subscribe-form">
+                            <span>Get in touch with us</span>
+                            <form method="get" class="subscribeForm">
+                                <input id="subscribe" type="text" />
+                                <input type="submit" id="submitButton" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="social-bottom">
+                            <span>Follow us:</span>
+                            <ul>
+                                <li><a target="_blank" href="https://www.facebook.com/isolutions.london.ltd/" class="fa fa-facebook"></a></li>
+                                <li><a target="_blank" href="https://twitter.com/isolutionsUK" class="fa fa-twitter"></a></li>
+                                <li><a target="_blank" href="https://www.linkedin.com/company/10081609" class="fa fa-linkedin"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-footer">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="shop-list">
+                            <h4 class="footer-title">Training Courses</h4>
+                            <ul>
+                                @foreach (var c in categories)
+                                {
+                                    <li><a href="/Courses?category=@c.Id"><i class="fa fa-angle-right"></i>@c.Name</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="shop-list">
+                            <h4 class="footer-title">Consultation</h4>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Energy Consulting</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Architecture and Interior Design</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="more-info">
+                            <h4 class="footer-title">More info</h4>
+                            <ul>
+                                <li><i class="fa fa-phone"></i>UK (Mob): +44 (0) 7411048491</li>
+                                <li><i class="fa fa-phone"></i>UK (landline): +44 (0) 2072232561</li>
+                                @*<li><i class="fa fa-phone"></i>Egypt (Mob): +20 (0) 1002333419</li>
+                                <li><i class="fa fa-globe"></i> 8 Moharm Shawky St, El-Korba, Heliopolis, Cairo, Egypt</li>*@
+                                <li><i class="fa fa-envelope"></i>info@isolutions.london</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-footer">
+            <p>Copyright © @DateTime.Now.Year <a href="/Home">ISolutions</a> | Design by: <a href="#">Roaya</a> | <a href="/Account/Login?returnurl=/Courses/List">Login</a></p>
+        </div>
+    </footer>
+    @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            $('ul.nav li.dropdown').hover(function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn();
+            }, function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut();
+            });
+            $('ul.nav li.dropdown ul.dropdown-menu').hover(function () {
+                $(this).parent("li.dropdown").css("background-color", "#eeeeee");
+            }, function () {
+                $(this).parent("li.dropdown").css("background-color", "transparent");
+            });
+        })
+        $("div.blog-post").hover(function () { $(this).find("div.content-hide").slideToggle("fast"); },
+        function () { $(this).find("div.content-hide").slideToggle("fast"); });
+
+    </script>
+</body>
+</html>

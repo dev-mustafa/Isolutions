@@ -1,0 +1,150 @@
+﻿@model IEnumerable<ISolutions.Portal.Models.TrainingEvent>
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+    <div class="col-sm-4">
+        <div class="blog-post">
+            <div class="blog-thumb">
+                <img src="~/images/Courses/@item.Course.Image" alt="" />
+            </div>
+            <div class="blog-content">
+                <div class="content-show">
+                    <h4>@item.Course.Title</h4>
+                    <span>@item.Date.ToString("dd MMM yyyy")</span>
+                </div>
+                <div class="content-hide">
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td>Code</td>
+                                <td>@item.Course.Code</td>
+                            </tr>
+                            @*<tr>
+                                    <td>Category</td>
+                                    <td>@item.Course.Category.Name</td>
+                                </tr>*@
+                            <tr>
+                                <td>City</td>
+                                <td>@item.City.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Duration</td>
+                                <td>@item.Duration</td>
+                            </tr>
+                            <tr>
+                                @{
+                                    string outline = item.Course.Id + ".pdf";
+                                }
+                                <td colspan="2">
+                                    @if (System.IO.File.Exists(Server.MapPath("~\\Images\\Courses\\" + outline)))
+                                    {
+                                        <div class="btn-group col-md-offset-4 col-md-8">
+                                            <a class="btn btn-info" href="~/Images/Courses/@outline" target="_blank">outline</a>
+                                            <a class="btn btn-default" href="/Home/Contact">View more</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-default col-md-offset-8 col-md-4" href="/Home/Contact">View more</a>
+                                    }
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+
+    $("div.blog-post").hover(
+       function () {
+           $(this).find("div.content-hide").slideToggle("fast");
+       }, function () {
+           $(this).find("div.content-hide").slideToggle("fast");
+       });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<div>
+
+    @*<div class="course form-horizontal">
+            <h4>
+                @item.Title
+            </h4>
+            <div class="form-group">
+                <label class="col-md-3">Code: </label>
+                <span class="col-md-9">@item.Code </span>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Category: </label>
+                <span class="col-md-9">@item.Category.Name </span>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">City: </label>
+                <span class="col-md-9">@item.City.Name </span>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Date: </label>
+                <span class="col-md-9">@item.Date.ToShortDateString() </span>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Duration:</label>
+                <span class="col-md-9">@item.Duration Days </span>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-default col-md-offset-8 col-md-3">More</a>
+
+            </div>
+        </div>*@
+    @*<div class="course">
+            <table class="table table-striped">
+
+                <thead>
+                    <tr><th colspan="2">@item.Course.Title</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Code</td>
+                        <td>@item.Course.Code</td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td>@item.Course.Category.Name</td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td>@item.City.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>@item.Date.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <td>Duration</td>
+                        <td>@item.Duration</td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="2">
+                            <a class="btn btn-default col-md-offset-9 col-md-3">More</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>*@
+</div>

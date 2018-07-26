@@ -1,0 +1,35 @@
+﻿.nav.navbar-nav > li {
+    margin: 0;
+}
+
+    .nav.navbar-nav > li > a {
+        color: #e1e1e1;
+        padding: 0 15px;
+    }
+
+.navbar-inverse {
+    background-color: #646464;
+    padding:10px ;
+}
+
+.navbar {
+    border-radius: 0;
+    min-height:0;
+}
+
+.bottom-footer {
+    padding: 0;
+}
+
+.container.body-content {
+    min-height: 415px;
+}
+a{
+    color:#646464;
+}
+a:hover{
+    color:#ff0000;
+}
+table > tbody > tr>td:last-child{
+    width:160px;
+}

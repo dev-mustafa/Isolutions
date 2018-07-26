@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<style>
+    h4 {
+        color: #a90707;
+    }
+
+    input {
+        width: 100%;
+    }
+</style>
+<hr />
+<div id="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="result"></div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="product-item col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="message-form">
+                            @using (Ajax.BeginForm("Send", "Home", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "result", InsertionMode = InsertionMode.InsertAfter }))
+                            {
+                                <div class="row">
+                                    <div class="name col-md-4">
+                                        <input type="text" name="name" id="name" placeholder="Name" />
+                                    </div>
+                                    <div class="email col-md-4">
+                                        <input type="text" name="email" id="email" placeholder="Email" />
+                                    </div>
+                                    <div class="subject col-md-4">
+                                        <input type="text" name="subject" id="subject" placeholder="Subject" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="text col-md-12">
+                                        <textarea name="text" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="send">
+                                    <button type="submit">Send</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="more-info">
+                            <ul>
+                                <li><i class="fa fa-phone"></i>UK (Mob): +44 (0) 7411048491</li>
+                                <li><i class="fa fa-phone"></i>UK (landline): +44 (0) 2072232561</li>
+                                @*<li><i class="fa fa-phone"></i>Egypt (Mob): +20 (0) 1002333419</li>
+                                <li><i class="fa fa-globe"></i> 8 Moharm Shawky St, El-Korba, Heliopolis, Cairo, Egypt</li>*@
+                                <li><i class="fa fa-envelope"></i>info@isolutions.london</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="row">
+    <div class="col-md-12">
+        <div class="heading-section">
+            <h2>Find Us On Map</h2>
+            <img src="~/Images/under-heading.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="googleMap" style="height:420px;"></div>
+    </div>
+</div>*@
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&amp;sensor=false">
+</script>
+
+<script>
+
+    var map;
+
+    function initialize() {
+        var map_options = {
+            center: new google.maps.LatLng(30.088124, 31.325990),
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), map_options);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    google.maps.event.addDomListener(window, "resize", function () {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+    });
+</script>

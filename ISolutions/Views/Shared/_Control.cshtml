@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ISolutions.Portal</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link rel="stylesheet" type="text/css" href="~/Content/Control.css" />
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Cities", "Index", "Cities")</li>
+                <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+                <li>@Html.ActionLink("Courses", "List", "Courses")</li>
+                <li>@Html.ActionLink("Events", "Index", "TrainingEvents")</li>
+                <li>@Html.ActionLink("Slider", "Index", "Slides")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+    <footer>
+        <div class="bottom-footer">
+            <p>Copyright © @DateTime.Now.Year <a href="/Home">ISolutions</a> | Design by: <a href="#">Roaya</a></p>
+        </div>
+    </footer>
+    @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            $('ul.nav li.dropdown').hover(function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn();
+            }, function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut();
+            });
+            $('ul.nav li.dropdown ul.dropdown-menu').hover(function () {
+                $(this).parent("li.dropdown").css("background-color", "#eeeeee");
+            }, function () {
+                $(this).parent("li.dropdown").css("background-color", "transparent");
+            });
+        })
+        $("div.blog-post").hover(function () { $(this).find("div.content-hide").slideToggle("fast"); },
+        function () { $(this).find("div.content-hide").slideToggle("fast"); });
+        $('.flexslider').flexslider({
+            prevText: '',
+            nextText: ''
+        });
+    </script>
+</body>
+</html>

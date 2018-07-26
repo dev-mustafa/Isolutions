@@ -1,0 +1,74 @@
+﻿@model ISolutions.Portal.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm(Html.BeginForm("Edit", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Category</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>   
+        <div class="form-group">
+            @Html.LabelFor(model => model.LargeImage, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.LargeImage, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" style="display:none" id="lgimg" name="lgimg" />
+                @Html.ValidationMessageFor(model => model.LargeImage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Description)
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-1 checkbox">
+                @Html.CheckBoxFor(m => m.IsReady)
+                @Html.LabelFor(m => m.IsReady)
+            </div>
+            <div class="col-md-3">
+                <input type="submit" value="Save" class="btn btn-default btn-block" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+    $('#LargeImage').click(function () {
+        $('#lgimg').click();
+    })
+    $('#SmallImage').click(function () {
+        $('#smimg').click();
+    })
+    $('#lgimg').change(function (e) {
+        $('#LargeImage').val(this.files[0].name);
+    })
+    $('#smimg').change(function (e) {
+        $('#SmallImage').val(this.files[0].name);
+    })
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
